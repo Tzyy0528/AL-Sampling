@@ -4,7 +4,7 @@
 </p>
 This repository provides the active-learning sampling strategies, representative datasets, example simulation workflows, and structural data associated with the global structure search of neutral Au clusters reported in this work.
 
-The implemented workflow combines diversity-based sampling and uncertainty-based sampling to efficiently explore complex low-energy potential-energy surfaces using neural-network atomic potentials (NNAPs) coupled with first-principles calculations.
+The implemented workflow combines diversity-based sampling and uncertainty-based sampling to efficiently explore complex low-energy potential-energy surfaces using neural-network atomic potentials (NNAP) coupled with first-principles calculations.
 
 ---
 
@@ -22,7 +22,7 @@ This repository contains:
   Machine-readable POSCAR files and DFT energies for the putative lowest-energy Auₙ clusters (n = 30–45).
 
 - `Low-lying-isomers/`  
-  The five lowest-energy DFT-refined isomers for each cluster size (n = 30–45), including relative energies.
+  The five lowest-energy DFT-refined isomers for each cluster size (n = 30–45).
 
 - `Dataset-and-potential/`  
   Example NNAP training dataset and trained neural-network potential used in this work.
@@ -31,7 +31,7 @@ This repository contains:
   Example VASP input files for structural relaxation and static energy calculations.
 
 - `Example-LAMMPS/`  
-  Example LAMMPS input files and scripts used for random structure generation, RSS sampling, and molecular dynamics sampling.
+  Example LAMMPS input files and scripts used for RSS sampling, and molecular dynamics sampling.
 
 - `README.md`  
   Documentation and workflow description.
