@@ -1,0 +1,26 @@
+# Basic setup:
+ISTART = 0
+ICHARG = 2
+
+# Accuracy controls:
+ENCUT = 298.925900
+PREC = Accurate
+LREAL = Auto
+
+# Electronic loop controls:
+ALGO = Normal
+EDIFF = 1E-05
+NELM = 60
+ISMEAR = 0
+SIGMA = 0.05
+
+# Structure control:
+ISIF = 2
+IBRION = -1
+NSW = 0
+
+# Output control:
+LCHARG = .TRUE.
+LWAVE = .FALSE.
+LELF = .TRUE.
+LVTOT = .TRUE.

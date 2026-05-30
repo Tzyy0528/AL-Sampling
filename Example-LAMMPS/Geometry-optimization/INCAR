@@ -1,0 +1,41 @@
+IBRION = 2     
+NSW = 200     
+EDIFFG = -0.01  
+ISIF = 2       
+
+# 电子步参数
+ENCUT = 298.925900
+EDIFF = 1.00e-05
+NELM = 200
+ALGO = Normal
+
+# Smearing 设置 (为弛豫稳定性新增)
+ISMEAR = 0 
+SIGMA = 0.05   
+
+# 精度控制
+PREC = Accurate
+LASPH = .TRUE.
+GGA = PE
+GGA_COMPAT = .FALSE.
+
+# K点设置
+KSPACING = 0.500000
+KGAMMA = .TRUE.
+
+# 并行化设置
+KPAR = 1
+NPAR = 2
+NSIM = 6
+LREAL = Auto
+
+# 输出控制
+LCHARG = .TRUE.
+LWAVE = .FALSE.
+# LELF = .TRUE.
+# LVTOT = .TRUE.
+
+# 其他
+ICHARG = 2
+ISTART = 0
+ISYM = 0
