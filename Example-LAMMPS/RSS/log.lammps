@@ -1,0 +1,156 @@
+LAMMPS (22 Jul 2025 - Update 2)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread.
+  using 1 OpenMP thread(s) per MPI task
+plugin load /mnt/c/one/jse-3.7.3b/jse/lib/lmp/plugin/cf6514f47e12a59d/liblmpplugin.so
+Loading plugin: jse pair by liqa
+Loading plugin: jse fix by liqa
+units           metal
+boundary        p p p
+
+read_data       structure.data
+Reading data file ...
+  triclinic box = (0 0 0) to (6.8865381 6.6466484 7.865002) with tilt (-2.0931072 -1.6328278 0.62673178)
+  2 by 2 by 2 MPI processor grid
+  reading atoms ...
+  30 atoms
+  read_data CPU = 0.004 seconds
+
+mass            1 196.96657
+
+timestep        0.002
+
+thermo          100
+thermo_style    custom step temp press vol pe
+thermo_modify   flush yes
+
+# =========================================================
+# Stage 1:
+# Soft-potential pre-relaxation
+# =========================================================
+
+pair_style      soft 1.8
+pair_coeff      * * 10.0
+
+min_style       cg
+minimize        1e-2 1e-4 1000 1000
+Generated 0 of 0 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 3.8
+  ghost atom cutoff = 3.8
+  binsize = 1.9, bins = 6 4 5
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair soft, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton/tri
+      stencil: half/bin/3d/tri
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.2 | 4.201 | 4.201 Mbytes
+   Step          Temp          Press          Volume         PotEng    
+         0   0              583742.5       360            123.00241    
+        18   0              0              360            0            
+Loop time of 0.000382576 on 8 procs for 18 steps with 30 atoms
+
+65.4% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = force tolerance
+  Energy initial, next-to-last, final = 
+      123.002407322072 5.21230993921762e-07                  0
+  Force two-norm initial, final = 109.50557 0
+  Force max component initial, final = 38.634622 0
+  Final line search alpha, max atom move = 0.5 0
+  Iterations, force evaluations = 18 41
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 4.853e-06  | 7.0901e-06 | 1.1166e-05 |   0.0 |  1.85
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0002177  | 0.00021919 | 0.00022117 |   0.0 | 57.29
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.0001563  |            |       | 40.85
+
+Nlocal:           3.75 ave           7 max           1 min
+Histogram: 1 0 0 2 0 4 0 0 0 1
+Nghost:         120.75 ave         133 max         112 min
+Histogram: 1 1 0 2 2 1 0 0 0 1
+Neighs:         35.625 ave          63 max           9 min
+Histogram: 1 0 0 1 1 4 0 0 0 1
+
+Total # of neighbors = 285
+Ave neighs/atom = 9.5
+Neighbor list builds = 0
+Dangerous builds = 0
+
+# =========================================================
+# Stage 2:
+# NNAP relaxation
+# =========================================================
+
+pair_style      jse jsex.nnap.PairNNAP
+pair_coeff      * * Au.jnn Au
+
+min_style       cg
+minimize        1e-6 1e-8 5000 5000
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 10.5
+  ghost atom cutoff = 10.5
+  binsize = 5.25, bins = 3 2 2
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair jse, perpetual
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 4.267 | 4.268 | 4.27 Mbytes
+   Step          Temp          Press          Volume         PotEng    
+        18   0              4421412.9      360            343.70412    
+       100   0              2010943.8      360           -17.346414    
+       127   0              1916115.5      360           -24.265806    
+Loop time of 0.334071 on 8 procs for 109 steps with 30 atoms
+
+153.5% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+      343.704115182141  -24.2657896673676  -24.2658057527411
+  Force two-norm initial, final = 225.44087 0.023910184
+  Force max component initial, final = 52.435196 0.0072136875
+  Final line search alpha, max atom move = 1 0.0072136875
+  Iterations, force evaluations = 109 181
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.11811    | 0.1558     | 0.19006    |   6.2 | 46.64
+Neigh   | 0.00012185 | 0.00016904 | 0.00020407 |   0.0 |  0.05
+Comm    | 0.13631    | 0.17261    | 0.20836    |   5.9 | 51.67
+Output  | 4.1417e-05 | 5.1598e-05 | 0.00012201 |   0.0 |  0.02
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.005448   |            |       |  1.63
+
+Nlocal:           3.75 ave           6 max           1 min
+Histogram: 1 0 1 0 0 0 4 0 1 1
+Nghost:         1322.5 ave        1362 max        1288 min
+Histogram: 2 0 1 0 1 2 0 0 1 1
+Neighs:              0 ave           0 max           0 min
+Histogram: 8 0 0 0 0 0 0 0 0 0
+FullNghs:       1526.5 ave        2447 max         410 min
+Histogram: 1 1 0 0 0 4 0 1 0 1
+
+Total # of neighbors = 12212
+Ave neighs/atom = 407.06667
+Neighbor list builds = 4
+Dangerous builds = 0
+
+# =========================================================
+
+write_data      relaxed.data
+System init for write_data ...
+Total wall time: 0:00:01

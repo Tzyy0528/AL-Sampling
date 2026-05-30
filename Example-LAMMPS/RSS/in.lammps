@@ -1,0 +1,38 @@
+units           metal
+boundary        p p p
+
+read_data       structure.data
+
+mass            1 196.96657
+
+timestep        0.002
+
+thermo          100
+thermo_style    custom step temp press vol pe
+thermo_modify   flush yes
+
+# =========================================================
+# Stage 1:
+# Soft-potential pre-relaxation
+# =========================================================
+
+pair_style      soft 1.8
+pair_coeff      * * 10.0
+
+min_style       cg
+minimize        1e-2 1e-4 1000 1000
+
+# =========================================================
+# Stage 2:
+# NNAP relaxation
+# =========================================================
+
+pair_style      jse jsex.nnap.PairNNAP
+pair_coeff      * * Au.jnn Au
+
+min_style       cg
+minimize        1e-6 1e-8 5000 5000
+
+# =========================================================
+
+write_data      relaxed.data

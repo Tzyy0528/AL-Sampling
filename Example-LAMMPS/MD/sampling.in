@@ -1,0 +1,29 @@
+units           metal
+boundary        p p p
+
+read_data       Au.data
+
+timestep        0.001
+
+pair_style      jse jsex.nnap.PairNNAP
+pair_coeff      * * Au.jnn Au
+
+# Initialize velocities
+velocity        all create 800 12345 dist gaussian mom yes rot yes
+
+thermo          5000
+thermo_style    custom step temp press vol pe ke etotal
+thermo_modify   flush yes
+
+# NVT ensemble
+fix             1 all nvt temp 800 800 0.1
+
+# Equilibration
+run             40000
+
+# Production run
+reset_timestep  0
+
+dump            1 all custom 20000 dump.lammpstrj id type x y z
+
+run             180000
