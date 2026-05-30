@@ -25,6 +25,31 @@ pip install numpy scipy tqdm ase
 
 ---
 
+## Repository Contents
+
+This repository contains:
+
+- `CUR.py`  
+  Diversity-based active-learning query strategy based on CUR decomposition.
+
+- `uncertainty.py`  
+  Uncertainty-based query strategy for NNAP active learning.
+
+- `Putative-lowest-energy-structures/`  
+  Machine-readable POSCAR files and DFT energies for the putative lowest-energy Auₙ clusters (n = 30–45).
+
+- `Low-lying-isomers/`  
+  The five lowest-energy DFT-refined isomers for each cluster size (n = 30–45), including relative energies.
+
+- `Dataset-and-potential/`  
+  Example NNAP training dataset and trained neural-network potential used in this work.
+
+- `Example-VASP/`  
+  Example VASP input files for structural relaxation and static energy calculations.
+
+- `Example-LAMMPS/`  
+  Example LAMMPS input files and scripts used for structure sampling and RSS generation.
+
 ## Sampling Methods Overview
 
 ### 1. Diversity-based Sampling via CUR Decomposition (`CUR.py`)
@@ -61,17 +86,3 @@ select_by_energy_uncertainty(
     jnn_path="path/to/your/nnap.jnn"       
 )
 ```
-
----
-
-## 🔄 Active Learning Generation Cycle
-
-In our global search workflow, these sampling strategies are coupled iteratively:
-
-1. **Generation (GA)**: Generate thousands of candidate clusters.
-2. **Exploration (CUR Diversity)**: Run `CUR.py` to down-sample the vast dataset into a diverse, affordable query batch (e.g., 200 structures).
-3. **Oracle Labeling (DFT)**: Calculate true energies for the sampled batch using VASP.
-4. **Exploitation (Uncertainty Filter)**: Run `uncertainty.py` to compare DFT results with NNAP predictions. Only configurations exceeding the error threshold (e.g., top 50) are physically added to the training set.
-5. **Model Retraining**: Train the NNAP and advance to the next generation.
-
----
