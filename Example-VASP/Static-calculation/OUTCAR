@@ -15,7 +15,7 @@
    PREC = Accurate
    LREAL = Auto
    ALGO = Normal
-   EDIFF = 1E-06
+   EDIFF = 1E-05
    NELM = 60
    ISMEAR = 0
    SIGMA = 0.05
