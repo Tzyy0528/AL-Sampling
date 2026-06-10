@@ -16,7 +16,13 @@ def select_by_energy_uncertainty(db_in_path: str, db_out_path: str, top_k: int, 
         db_in_path (str): Path to the input ASE database.
         db_out_path (str): Path to save the extracted high-uncertainty structures.
         top_k (int): Number of top structures with the highest uncertainty to select (k parameter).
-        dft_energy_
+        jnn_path (str): Path to the trained NNAP model file used to predict structure energies.
+
+    Notes:
+        The input ASE database is expected to store the reference DFT total energy in the
+        primary ``energy`` field of each row. The uncertainty score is computed as
+        ``U(S) = |E_DFT - E_NNAP| / N_atom`` and structures are ranked in descending order
+        of ``U(S)``.
     """
 
     print(f"[*] Reading structures from {db_in_path} to evaluate Energy Uncertainty...")

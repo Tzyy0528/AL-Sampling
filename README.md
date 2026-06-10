@@ -22,7 +22,7 @@ This repository contains:
   Machine-readable POSCAR files and DFT energies for the putative lowest-energy Auₙ clusters (n = 30–45).
 
 - `Low-lying-isomers/`  
-  The five lowest-energy DFT-refined isomers for each cluster size (n = 30–45).
+  Twenty low-energy DFT-refined isomers for each cluster size (n = 30–45).
 
 - `Dataset-and-potential/`  
   Example NNAP training dataset and trained neural-network potential used in this work.
