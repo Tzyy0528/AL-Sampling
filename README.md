@@ -149,4 +149,5 @@ Due to the large computational cost and storage requirements of the full active-
 
 If you use this repository or the associated workflow, please cite the corresponding publication.
 
+Active learning-driven global search for neutral gold clusters *via* neural network potential. *Phys. Chem. Chem. Phys.* (2026) 28 (27): 17114–17121.
 ---
